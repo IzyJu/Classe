@@ -1,0 +1,107 @@
+using System;
+using System.Reflection.PortableExecutable;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
+
+namespace Les_classes
+{
+    class Program
+    {
+
+        public class Charac2
+        {
+
+            public string name = "Character2";
+            public int life = 100;
+            public int attack = 20;
+            public int def = 10;
+
+            public bool IsAlive()
+            {
+                if (life > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            public int Attack(int a)
+            {               
+                Charac1 charac1 = new Charac1();
+                if (def > charac1.attack)
+                {
+                    return life;
+                }
+                else 
+                {
+                    life = (life - (charac1.attack - def));
+                    return life;
+                }                
+            }
+
+
+        }
+        public class Charac1
+        {
+            
+            public string name = "Character";
+            public int life = 100;
+            public int attack = 20;
+            public int def = 10;
+
+            public bool IsAlive()
+            {
+                if(life > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            public int Attack (int attaq)
+            {
+                Charac2 charac2 = new Charac2();
+                if (def >= charac2.attack)
+                {
+                    return life;
+                }
+                else
+                {
+                    life = life - (charac2.attack - def);
+                    return life;
+                }
+            }
+
+
+        }
+
+        static void Main(string[] args)
+        {
+            Charac1 charac1 = new Charac1();
+            Charac2 charac2 = new Charac2();
+
+            while (charac1.IsAlive() == true || charac2.IsAlive() == true)
+            {
+                charac2.Attack(charac1.attack);
+                
+                if (charac2.IsAlive() == false)
+                {
+                    Console.WriteLine("le personnage 1 a gagner");
+                    break;
+                }
+
+                charac1.Attack(charac2.attack);
+
+                if (charac1.IsAlive() == false)
+                {
+                    Console.WriteLine("le personnage 2 a gagner");
+                    break;
+                }               
+            }
+        }
+    }
+}
