@@ -8,42 +8,8 @@ namespace Les_classes
     class Program
     {
 
-        public class Charac2
-        {
-
-            public string name = "Character2";
-            public int life = 100;
-            public int attack = 20;
-            public int def = 10;
-
-            public bool IsAlive()
-            {
-                if (life > 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            public int Attack(int a)
-            {               
-                Charac1 charac1 = new Charac1();
-                if (def > charac1.attack)
-                {
-                    return life;
-                }
-                else 
-                {
-                    life = (life - (charac1.attack - def));
-                    return life;
-                }                
-            }
-
-
-        }
-        public class Charac1
+        
+        public class Character
         {
             
             public string name = "Character";
@@ -62,16 +28,16 @@ namespace Les_classes
                     return false;
                 }
             }
-            public int Attack (int attaq)
+            public int Attack (Character attaquant)
             {
-                Charac2 charac2 = new Charac2();
-                if (def >= charac2.attack)
+                
+                if (def >= attaquant.attack)
                 {
                     return life;
                 }
                 else
                 {
-                    life = life - (charac2.attack - def);
+                    life = life - (attaquant.attack - def);
                     return life;
                 }
             }
@@ -81,12 +47,25 @@ namespace Les_classes
 
         static void Main(string[] args)
         {
-            Charac1 charac1 = new Charac1();
-            Charac2 charac2 = new Charac2();
+            Character charac = new Character();
+            Character charac2 = new Character();
 
-            while (charac1.IsAlive() == true || charac2.IsAlive() == true)
-            {
-                charac2.Attack(charac1.attack);
+            charac.life = 200;
+            charac.def = 10;
+            charac.attack = 20;
+            charac.name = "le_un";
+
+            charac2.life = 110;
+            charac2.def = 10;
+            charac2.attack = 20;
+            charac2.name = "le_deux";
+
+
+
+
+            while (charac.IsAlive() == true || charac2.IsAlive() == true)
+            {               
+                charac2.Attack(charac);
                 
                 if (charac2.IsAlive() == false)
                 {
@@ -94,9 +73,9 @@ namespace Les_classes
                     break;
                 }
 
-                charac1.Attack(charac2.attack);
+                charac.Attack(charac2);
 
-                if (charac1.IsAlive() == false)
+                if (charac.IsAlive() == false)
                 {
                     Console.WriteLine("le personnage 2 a gagner");
                     break;
